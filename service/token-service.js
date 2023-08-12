@@ -51,6 +51,7 @@ class TokenService {
     await tokenModel.destroy({
       where: arg,
     });
+    return { userId: identifier };
   }
 
   async findToken(refreshToken) {
