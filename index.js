@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const cookieParse = require("cookie-parser");
 const router = require("./router/index");
 const errorMiddleware = require("./middleware/errorMiddleware");
@@ -7,6 +8,7 @@ const PORT = 5000;
 const app = express();
 app.use(express.json());
 app.use(cookieParse());
+app.options("*", cors());
 app.use("/api", router);
 app.use(errorMiddleware);
 
