@@ -31,6 +31,8 @@ class UserService {
       email: email,
       password: hashedPassword,
     });
+    newUser.lastLoginDate = new Date();
+    await newUser.save();
     const tokens = tokenService.generateTokens({
       user: newUser.id,
       email: newUser.email,
