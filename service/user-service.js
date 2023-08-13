@@ -93,19 +93,30 @@ class UserService {
   }
 
   async getAllUsers() {
-    const users = await userModel.findAll();
+    const users = await userModel.findAll({
+      attributes: { exclude: ["password"] },
+    });
     return users;
   }
   async getUser(id) {
-    const user = await userModel.findOne({ where: { id } });
+    const user = await userModel.findOne({
+      where: { id },
+      attributes: { exclude: ["password"] },
+    });
     return user;
   }
   async deleteUsers(id) {
-    await userModel.destroy({ where: { id } });
+    await userModel.destroy({
+      where: { id },
+      attributes: { exclude: ["password"] },
+    });
     await tokenService.removeToken(id);
   }
   async updateUsers(id, status) {
-    const user = await userModel.findOne({ where: { id } });
+    const user = await userModel.findOne({
+      where: { id },
+      attributes: { exclude: ["password"] },
+    });
     user.status = status;
     await user.save();
   }
